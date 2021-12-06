@@ -1,0 +1,57 @@
+adjoint_config:
+  # adjoint source type
+  adj_src_type: "multitaper_misfit"
+
+  # min and max period(unit: second)
+  min_period: 17.0
+  max_period: 40.0
+
+  # adjoint config parameter
+  lnpt: 15
+  water_threshold: 0.02
+  transfunc_waterlevel: 1.0E-10
+  ipower_costaper: 10
+  min_cycle_in_window: 2.0
+  taper_percentage: 1.0
+  mt_nw: 2.5
+  num_taper: 5
+  phase_step: 2.0
+  dt_fac: 1.0
+  err_fac: 8.0
+  dt_max_scale: 5.0
+  measure_type: 'dt'
+  taper_type: 'cos_p10'
+  use_cc_error: True
+  use_mt_error: False
+  dt_sigma_min: 1.0
+  dlna_sigma_min: 0.5
+
+process_config:
+  # for postprocessing adjoint sources
+  # interpolation. Starttime will be automatically set as cmt_time - 1.5 * hdur
+  # to fit the SPECFEM behaviour
+  interp_flag: True
+  interp_delta: 0.16
+  interp_npts: 45200
+
+  # for sum multiple insturments, like "II.AAK.00.BHZ" and "II.AAK.10.BHZ". if you turn
+  # the weight_flag to be true, then you need also provide the weight_dict in the code
+  sum_over_comp_flag: False
+  weight_flag: False
+
+  # same bandpass filter on the adjoint source as for obsd and synt
+  filter_flag: True
+  pre_filt: [0.0188, 0.0250, 0.0588, 0.0735]
+
+  # taper applied to summed adjoint source, the same as for obsd and synt
+  taper_type: 'hann'
+  taper_percentage: 0.05
+
+  # add missing components with zero trace(to prepare rotate)
+  # If set to False, only rotate those with Both "R" and "T"
+  # components. Set to True highly recommended unless you are
+  # sure what you are doing
+  add_missing_comp_flag: False
+
+  # rotate the adjoint source
+  rotate_flag: False
